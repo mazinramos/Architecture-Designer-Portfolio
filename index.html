@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE | Senior Interior Designer Portfolio</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="Award-winning interior design portfolio showcasing luxury residential and commercial spaces.">
+    <meta name="keywords" content="Interior Design, Luxury Architecture, Portfolio, Awwwards, 3D Design">
+    <meta property="og:title" content="LUXE | Luxury Interior Design">
+    <meta property="og:description" content="Award-winning interior design portfolio.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Playfair Display for Luxury Serif, Inter for clean Sans, Cairo for elegant Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <!-- Tailwind CSS (CDN Configuration) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#AA8C2C',
+                            600: '#8A7122',
+                        },
+                        dark: {
+                            900: '#050505',
+                            800: '#0f0f0f',
+                            700: '#1a1a1a',
+                        },
+                        light: {
+                            900: '#fcfcfc',
+                            800: '#f5f5f5',
+                            700: '#ebebeb',
+                        }
+                    },
+                    transitionTimingFunction: {
+                        'luxury': 'cubic-bezier(0.76, 0, 0.24, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --bg-main: #fcfcfc;
+            --bg-secondary: #f5f5f5;
+            --text-main: #050505;
+            --text-muted: #666666;
+            --accent: #AA8C2C;
+            --surface: rgba(0, 0, 0, 0.03);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-main: #050505;
+            --bg-secondary: #0f0f0f;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --accent: #D4AF37;
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Base Resets & Transitions */
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            transition: background-color 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
+                        color 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        /* Typography based on language */
+        html[dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        html[dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        html[dir="rtl"] .font-serif { font-family: 'Cairo', sans-serif; font-weight: 700; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: var(--accent);
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid var(--accent);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+        .cursor-outline.hover {
+            width: 60px; height: 60px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-color: transparent;
+            mix-blend-mode: difference;
+        }
+
+        /* Loader */
+        #loader {
+            background-color: #050505;
+            color: #fff;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .loader-logo span { display: inline-block; }
+
+        /* Lenis Smooth Scroll Recommended CSS */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Utilities */
+        .glass-panel {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+        }
+        
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--border);
+        }
+
+        .hover-trigger:hover .text-outline {
+            color: var(--text-main);
+            -webkit-text-stroke: 0px;
+            transition: all 0.5s ease;
+        }
+
+        /* Magnetic Button */
+        .magnetic-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .magnetic-btn-inner {
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Image Reveal Mask */
+        .reveal-img-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .reveal-mask {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-main);
+            z-index: 10;
+            transform-origin: top;
+        }
+
+        /* Grid / Masonry fixes */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 2rem;
+        }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 2rem; }
+
+        /* Form Inputs */
+        .luxury-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+        .luxury-input:focus {
+            outline: none;
+            border-bottom-color: var(--accent);
+        }
+
+        /* Floating elements animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        canvas { outline: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Cinematic Loader -->
+    <div id="loader">
+        <h1 class="loader-logo font-serif text-5xl md:text-7xl tracking-widest flex overflow-hidden">
+            <span class="text-white">L</span>
+            <span class="text-white">U</span>
+            <span class="text-white">X</span>
+            <span class="text-white">E</span>
+        </h1>
+        <div class="w-48 md:w-64 h-[1px] bg-white/20 mt-12 relative overflow-hidden">
+            <div id="loader-progress" class="absolute top-0 left-0 h-full w-0 bg-gold-400"></div>
+        </div>
+        <div id="loader-text" class="text-white/50 text-xs md:text-sm tracking-[0.3em] mt-6 uppercase font-sans">
+            Loading Experience
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-8 md:px-16" id="navbar">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-serif text-2xl tracking-widest uppercase hover-target" style="color: var(--text-main);">
+                LUXE
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-10 rtl:space-x-reverse mix-blend-difference text-white">
+                <a href="#about" class="text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors" data-i18n="nav-about">About</a>
+                <a href="#portfolio" class="text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors" data-i18n="nav-portfolio">Portfolio</a>
+                <a href="#services" class="text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors" data-i18n="nav-services">Services</a>
+                <a href="#contact" class="text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors" data-i18n="nav-contact">Contact</a>
+            </div>
+
+            <!-- Controls (Lang & Theme) -->
+            <div class="flex items-center space-x-6 rtl:space-x-reverse mix-blend-difference text-white">
+                <button id="theme-toggle" class="hover-target text-sm tracking-widest uppercase hover:text-gold-400 transition-colors flex items-center gap-2">
+                    <span id="theme-icon">☾</span>
+                </button>
+                <button id="lang-toggle" class="hover-target text-sm tracking-widest uppercase hover:text-gold-400 transition-colors">
+                    AR
+                </button>
+                <!-- Mobile Menu Btn -->
+                <button class="md:hidden hover-target text-sm uppercase tracking-widest">
+                    Menu
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+            <!-- Three.js Canvas Background -->
+            <canvas id="hero-canvas" class="absolute inset-0 z-0"></canvas>
+            
+            <!-- Hero Content -->
+            <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pointer-events-none">
+                <p class="text-gold-400 text-sm md:text-base tracking-[0.3em] uppercase mb-6 hero-anim" data-i18n="hero-subtitle">
+                    Award Winning Interior Design
+                </p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 hero-anim" style="color: var(--text-main);">
+                    <span class="block overflow-hidden"><span class="block translate-y-full hero-text-line" data-i18n="hero-title-1">Designing Spaces</span></span>
+                    <span class="block overflow-hidden"><span class="block translate-y-full hero-text-line italic text-outline" data-i18n="hero-title-2">That Inspire.</span></span>
+                </h1>
+                
+                <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-6 pointer-events-auto hero-anim opacity-0 translate-y-10">
+                    <a href="#portfolio" class="magnetic-btn group relative px-8 py-4 bg-transparent border border-gold-400 text-gold-400 hover:text-dark-900 overflow-hidden hover-target">
+                        <div class="absolute inset-0 bg-gold-400 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100"></div>
+                        <span class="magnetic-btn-inner relative z-10 text-sm uppercase tracking-widest" data-i18n="btn-portfolio">View Portfolio</span>
+                    </a>
+                    <a href="#contact" class="magnetic-btn group relative px-8 py-4 bg-transparent hover-target" style="color: var(--text-main);">
+                        <span class="magnetic-btn-inner relative z-10 text-sm uppercase tracking-widest flex items-center gap-2">
+                            <span data-i18n="btn-consult">Book Consultation</span>
+                            <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-4 z-10 pointer-events-none hero-anim">
+                <span class="text-xs tracking-[0.2em] uppercase mix-blend-difference text-white" data-i18n="scroll-down">Scroll</span>
+                <div class="w-[1px] h-16 bg-white/20 relative overflow-hidden mix-blend-difference">
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-white animate-[bounce_2s_infinite]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-32 px-8 md:px-16 relative">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Left Image Parallax -->
+                <div class="relative h-[60vh] md:h-[80vh] w-full reveal-img-container rounded-sm overflow-hidden">
+                    <div class="reveal-mask"></div>
+                    <!-- Unsplash Luxury Interior -->
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1600" 
+                         alt="Interior Design" 
+                         class="w-full h-[120%] object-cover absolute top-[-10%] parallax-img" />
+                    
+                    <!-- Glassmorphism Badge -->
+                    <div class="absolute bottom-8 right-8 rtl:right-auto rtl:left-8 glass-panel p-6 max-w-[200px] rounded-sm animate-float">
+                        <div class="text-4xl font-serif text-gold-400 mb-2 counter" data-target="20">0</div>
+                        <div class="text-xs uppercase tracking-widest" data-i18n="years-exp">Years of Excellence</div>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div class="flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="h-[1px] w-12 bg-gold-400"></div>
+                        <span class="text-gold-400 text-sm tracking-widest uppercase" data-i18n="about-subtitle">The Philosophy</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-8 gs-reveal">
+                        <span data-i18n="about-title-1">Transforming Spaces.</span><br/>
+                        <span class="italic text-outline" data-i18n="about-title-2">Elevating Lifestyles.</span>
+                    </h2>
+                    <p class="text-lg leading-relaxed mb-12 gs-reveal text-muted" style="color: var(--text-muted);" data-i18n="about-desc">
+                        We believe that interior design is not just about aesthetics, but about creating an emotional connection between the space and its inhabitants. Our approach blends timeless luxury with modern functionality, resulting in environments that are both breathtaking and profoundly livable.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-8 gs-reveal pt-8 border-t border-gray-500/20">
+                        <div>
+                            <div class="text-4xl font-serif text-gold-400 mb-2 flex items-center">
+                                <span class="counter" data-target="150">0</span>+
+                            </div>
+                            <div class="text-xs uppercase tracking-widest" style="color: var(--text-muted);" data-i18n="stat-projects">Projects Completed</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-serif text-gold-400 mb-2 flex items-center">
+                                <span class="counter" data-target="45">0</span>
+                            </div>
+                            <div class="text-xs uppercase tracking-widest" style="color: var(--text-muted);" data-i18n="stat-awards">Global Awards</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D SHOWCASE SECTION -->
+        <section id="showcase-3d" class="relative w-full h-[80vh] flex items-center justify-center overflow-hidden bg-black py-20">
+            <div class="absolute inset-0 z-0 pointer-events-auto">
+                <canvas id="object-canvas" class="w-full h-full cursor-move"></canvas>
+            </div>
+            
+            <div class="relative z-10 pointer-events-none w-full max-w-screen-2xl px-8 flex justify-between items-center mix-blend-difference text-white">
+                <div class="max-w-md">
+                    <h2 class="font-serif text-4xl md:text-6xl mb-4" data-i18n="3d-title">Immersive Details</h2>
+                    <p class="text-sm tracking-widest uppercase opacity-70" data-i18n="3d-desc">Drag to rotate • Discover perfection</p>
+                </div>
+                <div class="hidden md:block w-32 h-[1px] bg-white/30"></div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-32 px-4 md:px-16 bg-main relative">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="h-[1px] w-12 bg-gold-400"></div>
+                            <span class="text-gold-400 text-sm tracking-widest uppercase" data-i18n="portfolio-subtitle">Selected Works</span>
+                        </div>
+                        <h2 class="font-serif text-5xl md:text-7xl gs-reveal" data-i18n="portfolio-title">Curated Spaces</h2>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-6 gs-reveal">
+                        <button class="text-sm uppercase tracking-widest text-gold-400 hover-target border-b border-gold-400 pb-1" data-i18n="filter-all">All</button>
+                        <button class="text-sm uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity hover-target pb-1" data-i18n="filter-residential">Residential</button>
+                        <button class="text-sm uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity hover-target pb-1" data-i18n="filter-commercial">Commercial</button>
+                        <button class="text-sm uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity hover-target pb-1" data-i18n="filter-hospitality">Hospitality</button>
+                    </div>
+                </div>
+
+                <!-- Masonry Gallery -->
+                <div class="masonry-grid">
+                    <!-- Project 1 -->
+                    <div class="masonry-item group cursor-none hover-target">
+                        <div class="relative overflow-hidden rounded-sm reveal-img-container">
+                            <div class="reveal-mask"></div>
+                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200" alt="Villa" class="w-full h-[600px] object-cover transition-transform duration-1000 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                <span class="text-gold-400 text-xs tracking-widest uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Dubai, UAE</span>
+                                <h3 class="text-white font-serif text-3xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">The Palm Villa</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="masonry-item group cursor-none hover-target">
+                        <div class="relative overflow-hidden rounded-sm reveal-img-container">
+                            <div class="reveal-mask"></div>
+                            <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&q=80&w=1200" alt="Kitchen" class="w-full h-[400px] object-cover transition-transform duration-1000 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                <span class="text-gold-400 text-xs tracking-widest uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">London, UK</span>
+                                <h3 class="text-white font-serif text-3xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Mayfair Penthouse</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="masonry-item group cursor-none hover-target">
+                        <div class="relative overflow-hidden rounded-sm reveal-img-container">
+                            <div class="reveal-mask"></div>
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200" alt="Apartment" class="w-full h-[500px] object-cover transition-transform duration-1000 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                <span class="text-gold-400 text-xs tracking-widest uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">New York, USA</span>
+                                <h3 class="text-white font-serif text-3xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Manhattan Loft</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="masonry-item group cursor-none hover-target">
+                        <div class="relative overflow-hidden rounded-sm reveal-img-container">
+                            <div class="reveal-mask"></div>
+                            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200" alt="Commercial" class="w-full h-[700px] object-cover transition-transform duration-1000 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                <span class="text-gold-400 text-xs tracking-widest uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Riyadh, KSA</span>
+                                <h3 class="text-white font-serif text-3xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">Corporate Headquarters</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 text-center">
+                    <a href="#" class="magnetic-btn inline-flex items-center gap-4 text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors">
+                        <span data-i18n="btn-view-all">View All Projects</span>
+                        <div class="w-12 h-[1px] bg-current"></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-32 px-8 md:px-16 border-t border-gray-500/10">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="text-center mb-24 gs-reveal">
+                    <span class="text-gold-400 text-sm tracking-widest uppercase block mb-4" data-i18n="services-subtitle">Expertise</span>
+                    <h2 class="font-serif text-5xl md:text-6xl" data-i18n="services-title">Signature Services</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card -->
+                    <div class="glass-panel p-10 group hover:-translate-y-2 transition-transform duration-500 hover-trigger gs-reveal">
+                        <div class="text-gold-400 mb-8 text-4xl font-serif">01</div>
+                        <h3 class="font-serif text-2xl mb-4" data-i18n="srv-1-title">Interior Architecture</h3>
+                        <p class="text-sm leading-relaxed mb-8 opacity-70" data-i18n="srv-1-desc">Structural spatial planning and meticulous architectural detailing to maximize flow and aesthetic impact.</p>
+                        <div class="w-0 group-hover:w-full h-[1px] bg-gold-400 transition-all duration-500"></div>
+                    </div>
+                    <!-- Service Card -->
+                    <div class="glass-panel p-10 group hover:-translate-y-2 transition-transform duration-500 hover-trigger gs-reveal">
+                        <div class="text-gold-400 mb-8 text-4xl font-serif">02</div>
+                        <h3 class="font-serif text-2xl mb-4" data-i18n="srv-2-title">Custom Furniture</h3>
+                        <p class="text-sm leading-relaxed mb-8 opacity-70" data-i18n="srv-2-desc">Bespoke furniture design and curation sourced from the world's most exclusive artisans and brands.</p>
+                        <div class="w-0 group-hover:w-full h-[1px] bg-gold-400 transition-all duration-500"></div>
+                    </div>
+                    <!-- Service Card -->
+                    <div class="glass-panel p-10 group hover:-translate-y-2 transition-transform duration-500 hover-trigger gs-reveal">
+                        <div class="text-gold-400 mb-8 text-4xl font-serif">03</div>
+                        <h3 class="font-serif text-2xl mb-4" data-i18n="srv-3-title">Project Management</h3>
+                        <p class="text-sm leading-relaxed mb-8 opacity-70" data-i18n="srv-3-desc">End-to-end execution, ensuring absolute precision and uncompromised quality from concept to handover.</p>
+                        <div class="w-0 group-hover:w-full h-[1px] bg-gold-400 transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS / TIMELINE SECTION -->
+        <section id="process" class="py-32 px-8 md:px-16 overflow-hidden">
+            <div class="max-w-screen-xl mx-auto">
+                 <div class="text-center mb-24 gs-reveal">
+                    <span class="text-gold-400 text-sm tracking-widest uppercase block mb-4" data-i18n="process-subtitle">The Journey</span>
+                    <h2 class="font-serif text-5xl md:text-6xl" data-i18n="process-title">Design Process</h2>
+                </div>
+
+                <div class="relative border-s border-gray-500/20 rtl:border-s-0 rtl:border-r space-y-16 pl-8 rtl:pl-0 rtl:pr-8 mx-4 md:mx-auto md:w-2/3">
+                    <!-- Step 1 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute w-3 h-3 bg-gold-400 rounded-full -left-[38px] rtl:left-auto rtl:-right-[38px] top-2"></div>
+                        <h3 class="font-serif text-2xl mb-2" data-i18n="proc-1-title">1. Discovery & Concept</h3>
+                        <p class="text-sm opacity-70 leading-relaxed" data-i18n="proc-1-desc">Understanding your vision, lifestyle, and aesthetic preferences to form the foundational design narrative.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute w-3 h-3 border-2 border-gold-400 bg-transparent rounded-full -left-[38px] rtl:left-auto rtl:-right-[38px] top-2"></div>
+                        <h3 class="font-serif text-2xl mb-2" data-i18n="proc-2-title">2. Schematic Design</h3>
+                        <p class="text-sm opacity-70 leading-relaxed" data-i18n="proc-2-desc">Developing spatial layouts, material palettes, and 3D visualizations to bring the concept to life.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute w-3 h-3 border-2 border-gold-400 bg-transparent rounded-full -left-[38px] rtl:left-auto rtl:-right-[38px] top-2"></div>
+                        <h3 class="font-serif text-2xl mb-2" data-i18n="proc-3-title">3. Procurement & Build</h3>
+                        <p class="text-sm opacity-70 leading-relaxed" data-i18n="proc-3-desc">Sourcing exquisite materials and overseeing master craftsmen during the construction phase.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative gs-reveal">
+                        <div class="absolute w-3 h-3 border-2 border-gold-400 bg-transparent rounded-full -left-[38px] rtl:left-auto rtl:-right-[38px] top-2"></div>
+                        <h3 class="font-serif text-2xl mb-2" data-i18n="proc-4-title">4. Styling & Handover</h3>
+                        <p class="text-sm opacity-70 leading-relaxed" data-i18n="proc-4-desc">The final layer of luxury—placing art, accessories, and bespoke elements before the grand reveal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION (SWIPER) -->
+        <section id="testimonials" class="py-32 bg-dark-900 text-white cursor-grab active:cursor-grabbing">
+            <div class="max-w-screen-2xl mx-auto px-8 md:px-16 text-center mb-16 gs-reveal">
+                <span class="text-gold-400 text-sm tracking-widest uppercase block mb-4" data-i18n="test-subtitle">Client Voices</span>
+                <h2 class="font-serif text-5xl md:text-6xl text-white">Words of Praise</h2>
+            </div>
+
+            <!-- Swiper -->
+            <div class="swiper testimonialSwiper pb-16">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide px-8 md:px-24 text-center">
+                        <svg class="w-12 h-12 text-gold-400 mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-xl md:text-3xl font-serif leading-relaxed mb-10 text-white">"They didn't just design a house; they curated a masterpiece. Every corner speaks of elegance, comfort, and an uncompromising attention to detail. A truly world-class experience."</p>
+                        <div class="text-gold-400 uppercase tracking-widest text-sm font-semibold">Alexander Rothschild</div>
+                        <div class="text-xs opacity-50 uppercase tracking-widest mt-1">Private Villa Owner, London</div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide px-8 md:px-24 text-center">
+                        <svg class="w-12 h-12 text-gold-400 mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-xl md:text-3xl font-serif leading-relaxed mb-10 text-white">"Transforming our corporate headquarters into an inspiring, luxurious space was no small feat. The team delivered beyond our wildest expectations, merging functionality with high-end art."</p>
+                        <div class="text-gold-400 uppercase tracking-widest text-sm font-semibold">Sarah Al-Fayed</div>
+                        <div class="text-xs opacity-50 uppercase tracking-widest mt-1">CEO, Al-Fayed Group, Dubai</div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- BOOK CONSULTATION / CONTACT SECTION -->
+        <section id="contact" class="py-32 px-8 md:px-16 border-t border-gray-500/10 relative">
+            <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Contact Info -->
+                <div class="gs-reveal">
+                    <span class="text-gold-400 text-sm tracking-widest uppercase block mb-4" data-i18n="contact-subtitle">Get In Touch</span>
+                    <h2 class="font-serif text-5xl md:text-7xl mb-8" data-i18n="contact-title">Let's Create <br> Together.</h2>
+                    <p class="text-sm opacity-70 leading-relaxed mb-12 max-w-md" data-i18n="contact-desc">
+                        Schedule a private consultation to discuss your vision. Our team is ready to embark on a journey of transformation with you.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase tracking-widest text-gold-400 mb-1" data-i18n="contact-email">Email</span>
+                            <a href="mailto:studio@luxedesign.com" class="text-lg hover-target hover:text-gold-400 transition-colors">studio@luxedesign.com</a>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase tracking-widest text-gold-400 mb-1" data-i18n="contact-phone">Phone</span>
+                            <a href="tel:+442012345678" class="text-lg hover-target hover:text-gold-400 transition-colors">+44 20 1234 5678</a>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase tracking-widest text-gold-400 mb-1" data-i18n="contact-location">Studio</span>
+                            <span class="text-lg opacity-80">15 Berkeley Square, Mayfair<br>London, W1J 6EG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luxury Form -->
+                <div class="glass-panel p-8 md:p-12 gs-reveal">
+                    <form class="space-y-8" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="relative">
+                                <input type="text" id="name" class="luxury-input peer placeholder-transparent hover-target" placeholder="Name" required>
+                                <label for="name" class="absolute left-0 -top-3.5 text-xs text-gold-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-gold-400 uppercase tracking-widest rtl:right-0 rtl:left-auto" data-i18n="form-name">Full Name</label>
+                            </div>
+                            <div class="relative">
+                                <input type="email" id="email" class="luxury-input peer placeholder-transparent hover-target" placeholder="Email" required>
+                                <label for="email" class="absolute left-0 -top-3.5 text-xs text-gold-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-gold-400 uppercase tracking-widest rtl:right-0 rtl:left-auto" data-i18n="form-email">Email Address</label>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <select id="project-type" class="luxury-input text-gray-500 hover-target cursor-pointer appearance-none">
+                                <option value="" disabled selected data-i18n="form-select-type">Select Project Type</option>
+                                <option value="residential" data-i18n="form-type-res">Residential</option>
+                                <option value="commercial" data-i18n="form-type-com">Commercial</option>
+                                <option value="hospitality" data-i18n="form-type-hos">Hospitality</option>
+                            </select>
+                            <div class="absolute right-0 top-4 pointer-events-none rtl:left-0 rtl:right-auto">
+                                <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <textarea id="message" rows="4" class="luxury-input peer placeholder-transparent hover-target resize-none" placeholder="Message" required></textarea>
+                            <label for="message" class="absolute left-0 -top-3.5 text-xs text-gold-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-gold-400 uppercase tracking-widest rtl:right-0 rtl:left-auto" data-i18n="form-msg">Project Details</label>
+                        </div>
+
+                        <button type="submit" class="magnetic-btn group relative w-full py-5 bg-dark-900 border border-transparent hover:border-gold-400 overflow-hidden hover-target mt-4 text-white">
+                            <div class="absolute inset-0 bg-gold-400 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100"></div>
+                            <span class="magnetic-btn-inner relative z-10 text-sm uppercase tracking-widest group-hover:text-dark-900 transition-colors" data-i18n="btn-submit">Submit Inquiry</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-8 md:px-16 border-t border-gray-500/20 bg-dark-900 text-white">
+        <div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <a href="#" class="font-serif text-3xl tracking-widest uppercase hover-target">LUXE</a>
+            
+            <div class="flex gap-6">
+                <a href="#" class="text-white/60 hover:text-gold-400 transition-colors hover-target"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="#" class="text-white/60 hover:text-gold-400 transition-colors hover-target"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                <a href="#" class="text-white/60 hover:text-gold-400 transition-colors hover-target"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.427 12.164L24 0h-2.502l-9.155 10.485L4.995 0H0l11.104 15.656L0 24h2.502l9.68-11.084L19.982 24h4.995l-11.55-15.836zm-3.415 3.91L8.528 14.1 2.27 5.4h3.693l4.896 6.75 1.484 1.975 6.55 9.03h-3.694l-5.187-7.081z"/></svg></a>
+            </div>
+
+            <div class="text-xs tracking-widest uppercase opacity-50" data-i18n="footer-copy">
+                &copy; 2026 LUXE STUDIO. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts (CDNs) -->
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Lenis (Smooth Scroll) -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <!-- Main Application Logic -->
+    <script>
+        // ==========================================
+        // 1. Translations & Language Management
+        // ==========================================
+        const dictionary = {
+            en: {
+                "nav-about": "About", "nav-portfolio": "Portfolio", "nav-services": "Services", "nav-contact": "Contact",
+                "hero-subtitle": "Award Winning Interior Design",
+                "hero-title-1": "Designing Spaces", "hero-title-2": "That Inspire.",
+                "btn-portfolio": "View Portfolio", "btn-consult": "Book Consultation", "scroll-down": "Scroll",
+                "years-exp": "Years of Excellence", "about-subtitle": "The Philosophy",
+                "about-title-1": "Transforming Spaces.", "about-title-2": "Elevating Lifestyles.",
+                "about-desc": "We believe that interior design is not just about aesthetics, but about creating an emotional connection between the space and its inhabitants. Our approach blends timeless luxury with modern functionality, resulting in environments that are both breathtaking and profoundly livable.",
+                "stat-projects": "Projects Completed", "stat-awards": "Global Awards",
+                "3d-title": "Immersive Details", "3d-desc": "Drag to rotate • Discover perfection",
+                "portfolio-subtitle": "Selected Works", "portfolio-title": "Curated Spaces",
+                "filter-all": "All", "filter-residential": "Residential", "filter-commercial": "Commercial", "filter-hospitality": "Hospitality",
+                "btn-view-all": "View All Projects",
+                "services-subtitle": "Expertise", "services-title": "Signature Services",
+                "srv-1-title": "Interior Architecture", "srv-1-desc": "Structural spatial planning and meticulous architectural detailing to maximize flow and aesthetic impact.",
+                "srv-2-title": "Custom Furniture", "srv-2-desc": "Bespoke furniture design and curation sourced from the world's most exclusive artisans and brands.",
+                "srv-3-title": "Project Management", "srv-3-desc": "End-to-end execution, ensuring absolute precision and uncompromised quality from concept to handover.",
+                "process-subtitle": "The Journey", "process-title": "Design Process",
+                "proc-1-title": "1. Discovery & Concept", "proc-1-desc": "Understanding your vision, lifestyle, and aesthetic preferences to form the foundational design narrative.",
+                "proc-2-title": "2. Schematic Design", "proc-2-desc": "Developing spatial layouts, material palettes, and 3D visualizations to bring the concept to life.",
+                "proc-3-title": "3. Procurement & Build", "proc-3-desc": "Sourcing exquisite materials and overseeing master craftsmen during the construction phase.",
+                "proc-4-title": "4. Styling & Handover", "proc-4-desc": "The final layer of luxury—placing art, accessories, and bespoke elements before the grand reveal.",
+                "test-subtitle": "Client Voices",
+                "contact-subtitle": "Get In Touch", "contact-title": "Let's Create <br> Together.",
+                "contact-desc": "Schedule a private consultation to discuss your vision. Our team is ready to embark on a journey of transformation with you.",
+                "contact-email": "Email", "contact-phone": "Phone", "contact-location": "Studio",
+                "form-name": "Full Name", "form-email": "Email Address", "form-select-type": "Select Project Type",
+                "form-type-res": "Residential", "form-type-com": "Commercial", "form-type-hos": "Hospitality",
+                "form-msg": "Project Details", "btn-submit": "Submit Inquiry",
+                "footer-copy": "© 2026 LUXE STUDIO. All Rights Reserved."
+            },
+            ar: {
+                "nav-about": "من نحن", "nav-portfolio": "أعمالنا", "nav-services": "خدماتنا", "nav-contact": "تواصل معنا",
+                "hero-subtitle": "تصميم داخلي حائز على جوائز",
+                "hero-title-1": "نصمم مساحات", "hero-title-2": "تلهمك.",
+                "btn-portfolio": "شاهد أعمالنا", "btn-consult": "احجز استشارة", "scroll-down": "مرر لأسفل",
+                "years-exp": "سنوات من التميز", "about-subtitle": "فلسفتنا",
+                "about-title-1": "نحوّل المساحات.", "about-title-2": "نرتقي بأسلوب الحياة.",
+                "about-desc": "نؤمن بأن التصميم الداخلي ليس مجرد جماليات، بل هو خلق ارتباط عاطفي بين المساحة وقاطنيها. يمزج نهجنا بين الفخامة الخالدة والوظائف الحديثة، مما ينتج عنه بيئات تحبس الأنفاس وعملية للغاية.",
+                "stat-projects": "مشروع مكتمل", "stat-awards": "جائزة عالمية",
+                "3d-title": "تفاصيل غامرة", "3d-desc": "اسحب للتدوير • اكتشف الكمال",
+                "portfolio-subtitle": "أعمال مختارة", "portfolio-title": "مساحات راقية",
+                "filter-all": "الكل", "filter-residential": "سكني", "filter-commercial": "تجاري", "filter-hospitality": "ضيافة",
+                "btn-view-all": "عرض كافة المشاريع",
+                "services-subtitle": "خبراتنا", "services-title": "خدماتنا المميزة",
+                "srv-1-title": "العمارة الداخلية", "srv-1-desc": "التخطيط المكاني الهيكلي والتفاصيل المعمارية الدقيقة لتعظيم الانسيابية والتأثير الجمالي.",
+                "srv-2-title": "أثاث مخصص", "srv-2-desc": "تصميم وتنسيق أثاث مخصص من أرقى الحرفيين والعلامات التجارية الحصرية في العالم.",
+                "srv-3-title": "إدارة المشاريع", "srv-3-desc": "تنفيذ متكامل يضمن الدقة المطلقة والجودة غير المنقوصة من الفكرة وحتى التسليم.",
+                "process-subtitle": "رحلتنا", "process-title": "مراحل التصميم",
+                "proc-1-title": "١. الاستكشاف والمفهوم", "proc-1-desc": "فهم رؤيتك وأسلوب حياتك وتفضيلاتك الجمالية لتشكيل الرواية الأساسية للتصميم.",
+                "proc-2-title": "٢. التصميم الأولي", "proc-2-desc": "تطوير التخطيطات المكانية ولوحات المواد وتصورات ثلاثية الأبعاد لإحياء الفكرة.",
+                "proc-3-title": "٣. المشتريات والتنفيذ", "proc-3-desc": "توريد مواد رائعة والإشراف على الحرفيين المهرة خلال مرحلة البناء.",
+                "proc-4-title": "٤. التنسيق والتسليم", "proc-4-desc": "اللمسة الفاخرة الأخيرة - وضع الفن والإكسسوارات والعناصر المخصصة قبل الكشف الكبير.",
+                "test-subtitle": "أصوات عملائنا",
+                "contact-subtitle": "تواصل معنا", "contact-title": "دعنا نبدع <br> معاً.",
+                "contact-desc": "حدد موعداً لاستشارة خاصة لمناقشة رؤيتك. فريقنا مستعد للانطلاق في رحلة التحول معك.",
+                "contact-email": "البريد الإلكتروني", "contact-phone": "الهاتف", "contact-location": "الاستوديو",
+                "form-name": "الاسم الكامل", "form-email": "البريد الإلكتروني", "form-select-type": "اختر نوع المشروع",
+                "form-type-res": "سكني", "form-type-com": "تجاري", "form-type-hos": "ضيافة",
+                "form-msg": "تفاصيل المشروع", "btn-submit": "إرسال الطلب",
+                "footer-copy": "© 2026 استوديو لوكس. جميع الحقوق محفوظة."
+            }
+        };
+
+        let currentLang = localStorage.getItem('luxe_lang') || 'en';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('luxe_lang', lang);
+            
+            document.getElementById('lang-toggle').innerText = lang === 'ar' ? 'EN' : 'AR';
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dictionary[lang][key]) {
+                    el.innerHTML = dictionary[lang][key];
+                }
+            });
+
+            // Refresh ScrollTrigger after layout shift
+            setTimeout(() => {
+                if(window.ScrollTrigger) ScrollTrigger.refresh();
+            }, 500);
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            setLanguage(currentLang === 'en' ? 'ar' : 'en');
+        });
+
+        // ==========================================
+        // 2. Theme Management (Dark/Light Mode)
+        // ==========================================
+        let currentTheme = localStorage.getItem('luxe_theme') || 'dark';
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            if(theme === 'dark'){
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            localStorage.setItem('luxe_theme', theme);
+            document.getElementById('theme-icon').innerText = theme === 'dark' ? '☀' : '☾';
+            
+            // Adjust ThreeJS materials based on theme if needed
+            if(window.updateThreeTheme) window.updateThreeTheme(theme);
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Initialize Lang & Theme
+        setLanguage(currentLang);
+        setTheme(currentTheme);
+
+        // ==========================================
+        // 3. Custom Cursor & Magnetic Buttons
+        // ==========================================
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        // GSAP QuickTo for smooth cursor
+        let cursorX = gsap.quickTo(cursorOutline, "left", {duration: 0.15, ease: "power3"});
+        let cursorY = gsap.quickTo(cursorOutline, "top", {duration: 0.15, ease: "power3"});
+        
+        window.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            cursorDot.style.left = `${clientX}px`;
+            cursorDot.style.top = `${clientY}px`;
+            cursorX(clientX);
+            cursorY(clientY);
+        });
+
+        document.querySelectorAll('.hover-target, button, a').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+        });
+
+        // Magnetic Buttons Logic
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            const inner = btn.querySelector('.magnetic-btn-inner');
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(inner, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(inner, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // ==========================================
+        // 4. Smooth Scrolling (Lenis)
+        // ==========================================
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Integrate Lenis with ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // ==========================================
+        // 5. Loading Sequence & GSAP Animations
+        // ==========================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            
+            // Progress Bar Anim
+            tl.to("#loader-progress", {
+                width: "100%",
+                duration: 2,
+                ease: "power2.inOut"
+            })
+            // Hide Loader
+            .to("#loader", {
+                yPercent: -100,
+                duration: 1.2,
+                ease: "power4.inOut",
+                onComplete: () => { document.getElementById('loader').style.display = 'none'; }
+            })
+            // Reveal Hero Text
+            .to(".hero-text-line", {
+                y: "0%",
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power4.out"
+            }, "-=0.5")
+            // Fade in Hero Elements
+            .to(".hero-anim", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power2.out"
+            }, "-=1");
+
+            initScrollTriggers();
+            initCounters();
+        });
+
+        function initScrollTriggers() {
+            // General Elements Reveal
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach(el => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 40 },
+                    { 
+                        opacity: 1, y: 0, 
+                        duration: 1, ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                        }
+                    }
+                );
+            });
+
+            // Image Reveal Mask (Left to Right / Top to Bottom)
+            const revealContainers = document.querySelectorAll('.reveal-img-container');
+            revealContainers.forEach(container => {
+                const mask = container.querySelector('.reveal-mask');
+                const img = container.querySelector('img');
+                
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 80%",
+                    }
+                });
+                
+                tl.to(mask, { scaleY: 0, duration: 1.5, ease: "power4.inOut" })
+                  .from(img, { scale: 1.2, duration: 2, ease: "power3.out" }, "-=1.5");
+            });
+
+            // Parallax Effect
+            gsap.to('.parallax-img', {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".parallax-img",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // Navbar Blur on Scroll
+            ScrollTrigger.create({
+                start: 'top -80',
+                end: 99999,
+                toggleClass: {className: 'glass-panel', targets: '#navbar'}
+            });
+        }
+
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                ScrollTrigger.create({
+                    trigger: counter,
+                    start: "top 90%",
+                    once: true,
+                    onEnter: () => {
+                        const target = +counter.getAttribute('data-target');
+                        gsap.to(counter, {
+                            innerHTML: target,
+                            duration: 2,
+                            snap: { innerHTML: 1 },
+                            ease: "power2.out"
+                        });
+                    }
+                });
+            });
+        }
+
+        // ==========================================
+        // 6. Swiper Initialization
+        // ==========================================
+        const swiper = new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'fade',
+            fadeEffect: { crossFade: true }
+        });
+
+        // ==========================================
+        // 7. Three.js Background & Showcase
+        // ==========================================
+        
+        // --- Hero Canvas (Floating Particles) ---
+        const initHeroCanvas = () => {
+            const canvas = document.getElementById('hero-canvas');
+            const scene = new THREE.Scene();
+            // Fog for depth
+            scene.fog = new THREE.FogExp2(0x050505, 0.001);
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 800;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.015,
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            camera.position.z = 3;
+
+            // Mouse Interaction
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX);
+                mouseY = (event.clientY - windowHalfY);
+            });
+
+            const animate = () => {
+                targetX = mouseX * 0.001;
+                targetY = mouseY * 0.001;
+                
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += 0.0005;
+                
+                // Camera slight movement
+                camera.position.x += (mouseX * 0.0005 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 0.0005 - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+            animate();
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Theme Updater Export
+            window.updateThreeTheme = (theme) => {
+                if(theme === 'dark') {
+                    scene.fog.color.setHex(0x050505);
+                } else {
+                    scene.fog.color.setHex(0xfcfcfc);
+                }
+            };
+        };
+
+        // --- 3D Showcase Canvas (Interactive Object) ---
+        const initShowcaseCanvas = () => {
+            const canvas = document.getElementById('object-canvas');
+            const scene = new THREE.Scene();
+            
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / (window.innerHeight * 0.8), 0.1, 100);
+            camera.position.z = 8;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+
+            // Lights for luxury reflection
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0xffffff, 2);
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xD4AF37, 3);
+            pointLight2.position.set(-5, -5, 5);
+            scene.add(pointLight2);
+
+            const pointLight3 = new THREE.PointLight(0xffffff, 1);
+            pointLight3.position.set(0, 5, -5);
+            scene.add(pointLight3);
+
+            // Create a complex luxury geometry (Torus Knot representing abstract art)
+            const geometry = new THREE.TorusKnotGeometry(1.5, 0.4, 256, 64, 2, 3);
+            
+            // Luxury Gold Physical Material
+            const material = new THREE.MeshPhysicalMaterial({
+                color: 0xD4AF37,
+                metalness: 0.9,
+                roughness: 0.1,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1,
+                envMapIntensity: 2.0
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // Drag Interaction Logic
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            canvas.addEventListener('mousedown', () => isDragging = true);
+            canvas.addEventListener('mouseup', () => isDragging = false);
+            canvas.addEventListener('mouseleave', () => isDragging = false);
+
+            canvas.addEventListener('mousemove', (e) => {
+                const deltaMove = {
+                    x: e.offsetX - previousMousePosition.x,
+                    y: e.offsetY - previousMousePosition.y
+                };
+
+                if (isDragging) {
+                    const deltaRotationQuaternion = new THREE.Quaternion()
+                        .setFromEuler(new THREE.Euler(
+                            Math.toRadians(deltaMove.y * 0.5),
+                            Math.toRadians(deltaMove.x * 0.5),
+                            0,
+                            'XYZ'
+                        ));
+                    mesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, mesh.quaternion);
+                }
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+
+            // Touch support
+            canvas.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, {passive: true});
+            canvas.addEventListener('touchend', () => isDragging = false);
+            canvas.addEventListener('touchmove', (e) => {
+                if(!isDragging) return;
+                const deltaMove = {
+                    x: e.touches[0].clientX - previousMousePosition.x,
+                    y: e.touches[0].clientY - previousMousePosition.y
+                };
+                const deltaRotationQuaternion = new THREE.Quaternion()
+                    .setFromEuler(new THREE.Euler(
+                        Math.toRadians(deltaMove.y * 0.5),
+                        Math.toRadians(deltaMove.x * 0.5),
+                        0,
+                        'XYZ'
+                    ));
+                mesh.quaternion.multiplyQuaternions(deltaRotationQuaternion, mesh.quaternion);
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, {passive: true});
+
+            Math.toRadians = function(degrees) { return degrees * Math.PI / 180; };
+
+            const animate = () => {
+                if (!isDragging) {
+                    // Auto idle rotation
+                    mesh.rotation.y += 0.002;
+                    mesh.rotation.x += 0.001;
+                }
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / (window.innerHeight * 0.8);
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+            });
+        };
+
+        initHeroCanvas();
+        initShowcaseCanvas();
+
+    </script>
+</body>
+</html>
