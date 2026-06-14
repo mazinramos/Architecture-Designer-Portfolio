@@ -14,10 +14,9 @@
     <meta name="keywords" content="Fatah Magdi, Interior Design, Luxury Architecture, 3D Designer, Interior Portfolio, عبدالفتاح مجدي, تصميم داخلي, هندسة معمارية">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Open Graph (Social Media & WhatsApp Preview) -->
     <meta property="og:title" content="Fatah Magdi | Senior Interior Designer Portfolio">
     <meta property="og:description" content="Award-winning luxury interior design and 3D architectural visualization by Fatah Magdi.">
-    <meta property="og:image" content="Profile.jpeg">
+    <meta property="og:image" content="favicon.png">
     <meta property="og:url" content="https://fatah-magdi-designer.vercel.app/"> 
     <meta property="og:type" content="profile">
     
@@ -115,7 +114,7 @@
             transition: background-color 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
                         color 0.8s cubic-bezier(0.76, 0, 0.24, 1);
             overflow-x: hidden;
-            cursor: none; /* Custom cursor */
+            cursor: none;
         }
 
         /* Typography based on language */
@@ -243,6 +242,11 @@
             outline: none;
             border-bottom-color: var(--accent);
         }
+
+#premium-showcase {
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+}
 
         /* Floating elements animation */
         @keyframes float {
@@ -451,15 +455,14 @@
                     </div>
                     
                     <!-- Project 2 -->
-                    <div id="dynamic-portfolio-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 pb-20">
-    </div>
-
+<div id="dynamic-portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+   </div>
                 <div class="mt-20 text-center">
-                    <a href="#" class="magnetic-btn inline-flex items-center gap-4 text-sm uppercase tracking-widest hover-target hover:text-gold-400 transition-colors">
-                        <span data-i18n="btn-view-all">View All Projects</span>
-                        <div class="w-12 h-[1px] bg-current"></div>
-                    </a>
-                </div>
+    <a href="#" id="view-more-btn" onclick="showAllProjects(event)" class="magnetic-btn inline-flex items-center gap-4 text-sm uppercase tracking-widest hover-target hover:text-[#C5A059] transition-colors">
+        <span id="view-more-text" data-i18n="btn-view-all">View All Projects</span>
+        <div class="w-12 h-[1px] bg-current"></div>
+    </a>
+</div>
             </div>
         </section>
 
@@ -593,7 +596,7 @@
 
                 <!-- Luxury Form -->
                 <div class="glass-panel p-8 md:p-12 gs-reveal">
-                    <form class="space-y-8" onsubmit="event.preventDefault();">
+                    <form class="space-y-8" onsubmit="sendToTelegram(event)">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div class="relative">
                                 <input type="text" id="name" class="luxury-input peer placeholder-transparent hover-target" placeholder="Name" required>
@@ -672,8 +675,6 @@
         </div>
     </footer>
 
-    <!-- Scripts (CDNs) -->
-    <!-- GSAP Core & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Three.js Core -->
@@ -684,14 +685,12 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
 
 <script>
-    // نظام الفتح السري للموبايل (5 نقرات على اللوقو)
 const secretTrigger = document.getElementById('secret-trigger');
 let tapCount = 0;
 let tapTimer;
 
 if (secretTrigger) {
     secretTrigger.addEventListener('click', function(e) {
-        // هذه الخطوة مهمة جداً لمنع الصفحة من القفز للأعلى
         e.preventDefault(); 
         
         tapCount++;
@@ -702,30 +701,26 @@ if (secretTrigger) {
             if(adminPanel) {
                 adminPanel.classList.remove('hidden');
                 
-                // تشغيل الأنيميشن 
                 if(typeof gsap !== 'undefined') {
                     gsap.to(adminPanel, { opacity: 1, duration: 0.5 });
                 } else {
                     adminPanel.style.opacity = 1;
                 }
             }
-            tapCount = 0; // تصفير العداد بعد فتح اللوحة
+            tapCount = 0; 
         }
         
-        // تصفير العداد إذا تأخرت أكثر من ثانية بين النقرات
         tapTimer = setTimeout(() => {
             tapCount = 0;
         }, 1000); 
     });
 }
 
-// نظام الفتح السري للموبايل (5 نقرات متتالية سريعة على الشعار)
 let tapCount = 0;
 let tapTimer;
 const secretTrigger = document.getElementById('secret-trigger');
 
 if (secretTrigger) {
-    // يعمل مع النقر بالماوس أو اللمس بالأصبع
     secretTrigger.addEventListener('click', function(e) {
         tapCount++;
         clearTimeout(tapTimer);
@@ -734,23 +729,20 @@ if (secretTrigger) {
             const adminPanel = document.getElementById('admin-dashboard');
             adminPanel.classList.remove('hidden');
 
-            // تشغيل الأنيميشن إذا كان متاحاً
             if(typeof gsap !== 'undefined') {
                 gsap.to(adminPanel, { opacity: 1, duration: 0.5 });
             } else {
                 adminPanel.style.opacity = 1;
             }
-            tapCount = 0; // تصفير العداد بعد الفتح
+            tapCount = 0; 
         }
 
-        // تصفير العداد إذا تأخر المستخدم أكثر من ثانية بين النقرات
         tapTimer = setTimeout(() => {
             tapCount = 0;
         }, 1000); 
     });
 }
 
-// فتح اللوحة تلقائياً إذا كان الرابط يحتوي على #admin
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === '#admin') {
         setTimeout(() => {
@@ -762,7 +754,7 @@ window.addEventListener('DOMContentLoaded', () => {
             } else {
                 adminPanel.style.opacity = 1;
             }
-        }, 800); // تأخير بسيط لضمان تحميل واجهة الموقع أولاً
+        }, 800); 
     }
 });
 
@@ -855,7 +847,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Refresh ScrollTrigger after layout shift
             setTimeout(() => {
                 if(window.ScrollTrigger) ScrollTrigger.refresh();
             }, 500);
@@ -881,7 +872,6 @@ window.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('luxe_theme', theme);
             document.getElementById('theme-icon').innerText = theme === 'dark' ? '☀' : '☾';
             
-            // Adjust ThreeJS materials based on theme if needed
             if(window.updateThreeTheme) window.updateThreeTheme(theme);
         }
 
@@ -1171,7 +1161,6 @@ window.addEventListener('DOMContentLoaded', () => {
             };
         };
 
-        // --- 3D Showcase Canvas (Interactive Object) ---
         const initShowcaseCanvas = () => {
             const canvas = document.getElementById('object-canvas');
             const scene = new THREE.Scene();
@@ -1201,7 +1190,6 @@ window.addEventListener('DOMContentLoaded', () => {
             pointLight3.position.set(0, 5, -5);
             scene.add(pointLight3);
 
-            // Create a complex luxury geometry (Torus Knot representing abstract art)
             const geometry = new THREE.TorusKnotGeometry(1.5, 0.4, 256, 64, 2, 3);
             
             // Luxury Gold Physical Material
@@ -1271,7 +1259,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const animate = () => {
                 if (!isDragging) {
-                    // Auto idle rotation
                     mesh.rotation.y += 0.002;
                     mesh.rotation.x += 0.001;
                 }
@@ -1290,51 +1277,135 @@ window.addEventListener('DOMContentLoaded', () => {
         initHeroCanvas();
         initShowcaseCanvas();
 
+const INITIAL_PROJECTS_LIMIT = 4; 
+
+function setupProjectsVisibility() {
+    const projects = document.querySelectorAll('.project-card'); 
+    const btn = document.getElementById('view-more-btn');
+    const btnText = document.getElementById('view-more-text');
+
+    if (!btn) return; 
+
+    if (projects.length <= INITIAL_PROJECTS_LIMIT) {
+        btnText.innerText = "No More Projects";
+        btn.style.pointerEvents = "none"; 
+        btn.style.opacity = "0.5";        
+    } else {
+        projects.forEach((proj, index) => {
+            if (index >= INITIAL_PROJECTS_LIMIT) {
+                proj.style.display = 'none'; 
+                proj.classList.add('hidden-project'); 
+            }
+        });
+        btnText.innerText = "View All Projects";
+    }
+}
+
+function showAllProjects(event) {
+    event.preventDefault();
+    
+    const hiddenProjects = document.querySelectorAll('.hidden-project');
+    const btn = document.getElementById('view-more-btn');
+    const btnText = document.getElementById('view-more-text');
+
+    if (hiddenProjects.length > 0) {
+        hiddenProjects.forEach(proj => {
+            proj.style.display = 'block'; 
+            proj.classList.remove('hidden-project');
+            
+            if(typeof gsap !== 'undefined') {
+                gsap.fromTo(proj, {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.6, ease: "power2.out"});
+            }
+        });
+        
+        btnText.innerText = "No More Projects";
+        btn.style.pointerEvents = "none";
+        btn.style.opacity = "0.5";
+    } else {
+        btnText.innerText = "No More Projects";
+        btn.style.pointerEvents = "none";
+        btn.style.opacity = "0.5";
+    }
+}
+
+async function sendToTelegram(event) {
+    event.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        type: document.getElementById('project-type').value,
+        message: document.getElementById('message').value
+    };
+
+    const response = await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    });
+
+    if ((await response.json()).success) {
+        alert('تم إرسال طلبك بنجاح!');
+    } else {
+        alert('حدث خطأ أثناء الإرسال.');
+    }
+}
+
     </script>
 
-    <div id="premium-showcase" class="fixed inset-0 z-[300] bg-black text-white overflow-y-auto hidden opacity-0">
+    <div id="premium-showcase" class="fixed inset-0 z-[300] bg-[#0a0a0a] text-white overflow-y-auto hidden opacity-0">
+
     <div class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference">
-        <button onclick="closeShowcase()" class="group flex items-center gap-4 text-sm tracking-[0.2em] uppercase">
-            <span class="w-8 h-[1px] bg-white group-hover:w-12 transition-all duration-300"></span>
+        <button onclick="closeShowcase()" class="group flex items-center gap-4 text-[15px] tracking-[0.3em] uppercase hover:text-[#C5A059] transition-colors">
+            <span class="w-8 h-[1px] bg-white group-hover:bg-[#C5A059] group-hover:w-12 transition-all duration-300"></span>
             <span data-lang="back">Back to Portfolio</span>
         </button>
-        <a id="showcase-pdf" href="#" target="_blank" class="border border-white/30 px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all">
-            Download Presentation
+        <a id="showcase-pdf" href="#" target="_blank" class="border border-white/20 px-6 py-2 text-[23px] tracking-[0.2em] uppercase hover:bg-[#C5A059] hover:border-[#C5A059] hover:text-black transition-all">
+            Download PDF
         </a>
     </div>
 
-    <div class="relative h-[80vh] w-full overflow-hidden">
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
-        <img id="showcase-hero" src="" alt="Hero" class="absolute w-full h-full object-cover scale-110">
+    <div class="relative h-[85vh] w-full overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10"></div>
+        <img id="showcase-hero" src="" alt="Hero" class="absolute w-full h-full object-cover scale-100">
+        
         <div class="absolute bottom-20 left-10 md:left-20 z-20">
-            <p id="showcase-cat" class="text-[#C5A059] text-xs tracking-[0.3em] uppercase mb-4"></p>
-            <h1 id="showcase-title" class="lux-font text-5xl md:text-8xl leading-none"></h1>
+            <p id="showcase-cat" class="text-[#C5A059] text-[12px] tracking-[0.4em] uppercase mb-6"></p>
+            <h1 id="showcase-title" class="font-serif text-6xl md:text-9xl leading-[0.9] text-white"></h1>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-10 py-20 grid grid-cols-1 lg:grid-cols-12 gap-16">
-        <div class="lg:col-span-4 space-y-8 border-t border-white/10 pt-8">
-            <div><p class="text-gray-500 text-xs tracking-[0.2em] uppercase mb-2">Location</p><p id="showcase-loc" class="text-lg"></p></div>
-            <div><p class="text-gray-500 text-xs tracking-[0.2em] uppercase mb-2">Area</p><p id="showcase-area" class="text-lg"></p></div>
-            <div><p class="text-gray-500 text-xs tracking-[0.2em] uppercase mb-2">Software</p><p id="showcase-software" class="text-lg"></p></div>
+    <div class="max-w-7xl mx-auto px-10 py-24 grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div class="lg:col-span-4 space-y-12 border-t border-white/10 pt-12">
+            <div class="space-y-2">
+                <p class="text-[15px] text-white/40 tracking-[0.3em] uppercase">Location</p>
+                <p id="showcase-loc" class="text-sm font-light tracking-[0.1em] uppercase"></p>
+            </div>
+            <div class="space-y-2">
+                <p class="text-[15px] text-white/40 tracking-[0.3em] uppercase">Area</p>
+                <p id="showcase-area" class="text-sm font-light tracking-[0.1em] uppercase"></p>
+            </div>
+            <div class="space-y-2">
+                <p class="text-[15px] text-white/40 tracking-[0.3em] uppercase">Software</p>
+                <p id="showcase-software" class="text-sm font-light tracking-[0.1em] uppercase"></p>
+            </div>
         </div>
-        <div class="lg:col-span-8 border-t border-white/10 pt-8">
-            <p class="text-gray-500 text-xs tracking-[0.2em] uppercase mb-6">Concept & Philosophy</p>
-            <p id="showcase-desc" class="text-2xl md:text-3xl font-light leading-relaxed text-gray-300"></p>
+
+        <div class="lg:col-span-8 border-t border-white/10 pt-12">
+            <p class="text-[15px] text-white/40 tracking-[0.3em] uppercase mb-8">Concept & Philosophy</p>
+            <p id="showcase-desc" class="text-lg md:text-xl font-light leading-[1.8] text-gray-300 max-w-2xl"></p>
         </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-10 py-20">
-        <h3 class="lux-font text-4xl mb-10">3D Renderings</h3>
-        <div id="showcase-renders" class="columns-1 md:columns-2 gap-8 space-y-8">
-            </div>
+        <h3 class="text-[25px] text-[#C5A059] tracking-[0.4em] uppercase mb-12">3D Renderings Gallery</h3>
+        <div id="showcase-renders" class="columns-1 md:columns-2 gap-8 space-y-8"></div>
     </div>
 
-    <div class="bg-white/5 py-20">
+    <div class="bg-white/[0.02] py-24">
         <div class="max-w-7xl mx-auto px-10">
-            <h3 class="lux-font text-4xl mb-10">Architectural Plans</h3>
-            <div id="showcase-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                </div>
+            <h3 class="text-[25px] text-[#C5A059] tracking-[0.4em] uppercase mb-12">Architectural Plans</h3>
+            <div id="showcase-plans" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </div>
     </div>
 </div>
@@ -1346,60 +1417,69 @@ window.addEventListener('DOMContentLoaded', () => {
             <button onclick="closeAdmin()" class="text-xl">&times;</button>
         </div>
         
-        <form id="project-form" class="space-y-6">
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Project Title</label>
-                    <input type="text" id="p-title" class="w-full bg-transparent border border-white/20 p-3 focus:border-[#C5A059] outline-none" required>
-                </div>
-                <div>
-                    <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Category</label>
-                    <input type="text" id="p-cat" class="w-full bg-transparent border border-white/20 p-3 focus:border-[#C5A059] outline-none" required>
-                </div>
+       <form id="project-form" class="space-y-10 p-8 border border-white/10 bg-[#0a0a0a]">
+    
+    <div class="grid grid-cols-2 gap-8">
+        <div>
+            <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Project Title</label>
+            <input type="text" id="p-title" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors" required>
+        </div>
+        <div>
+            <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Category</label>
+            <input type="text" id="p-cat" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors" required>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-8">
+        <div>
+            <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Location</label>
+            <input type="text" id="p-loc" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors">
+        </div>
+        <div>
+            <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Area (sqm)</label>
+            <input type="text" id="p-area" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors">
+        </div>
+        <div>
+            <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Software</label>
+            <input type="text" id="p-software" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors">
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-[10px] text-[#C5A059] uppercase tracking-[0.3em] mb-3">Concept Description</label>
+        <textarea id="p-desc" rows="3" class="w-full bg-transparent border-b border-white/20 p-2 focus:border-[#C5A059] outline-none text-white transition-colors"></textarea>
+    </div>
+
+    <div class="space-y-6 pt-6 border-t border-white/10">
+        <h4 class="text-[10px] text-white/40 uppercase tracking-[0.4em] mb-6 italic">Media & Documents</h4>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+                <label class="block text-[9px] text-white/60 uppercase tracking-[0.2em]">Cover Image URL</label>
+                <input type="url" id="p-cover" class="w-full bg-white/5 border border-white/10 p-3 outline-none text-white focus:border-[#C5A059]">
             </div>
-            <div class="grid grid-cols-3 gap-6">
-                <div>
-                    <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Location</label>
-                    <input type="text" id="p-loc" class="w-full bg-transparent border border-white/20 p-3 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Area (sqm)</label>
-                    <input type="text" id="p-area" class="w-full bg-transparent border border-white/20 p-3 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Software Used</label>
-                    <input type="text" id="p-software" class="w-full bg-transparent border border-white/20 p-3 outline-none">
-                </div>
+            <div class="space-y-2">
+                <label class="block text-[9px] text-white/60 uppercase tracking-[0.2em]">PDF Presentation URL</label>
+                <input type="url" id="p-pdf" class="w-full bg-white/5 border border-white/10 p-3 outline-none text-white focus:border-[#C5A059]">
             </div>
-            <div>
-                <label class="block text-xs text-[#C5A059] uppercase tracking-widest mb-2">Concept Description</label>
-                <textarea id="p-desc" rows="4" class="w-full bg-transparent border border-white/20 p-3 outline-none"></textarea>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-6 p-6 border border-white/10 bg-white/5 mt-6">
-                <div>
-                    <label class="block text-xs uppercase tracking-widest mb-2">Cover Image URL (رابط صورة الغلاف)</label>
-                    <input type="url" id="p-cover" placeholder="https://..." class="w-full bg-transparent border border-white/20 p-3 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-widest mb-2">Render Gallery URLs (روابط صور الـ 3D - افصل بينها بفاصلة , )</label>
-                    <textarea id="p-renders" rows="2" placeholder="https://img1.jpg, https://img2.jpg" class="w-full bg-transparent border border-white/20 p-3 outline-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-widest mb-2">Floor Plans URLs (روابط المخططات - افصل بينها بفاصلة , )</label>
-                    <textarea id="p-plans" rows="2" placeholder="https://plan1.jpg, https://plan2.jpg" class="w-full bg-transparent border border-white/20 p-3 outline-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-widest mb-2">PDF Presentation URL (رابط ملف جوجل درايف)</label>
-                    <input type="url" id="p-pdf" placeholder="https://drive.google.com/..." class="w-full bg-transparent border border-white/20 p-3 outline-none">
-                </div>
-            </div>
-            
-            <button type="button" onclick="uploadProject()" class="w-full bg-[#C5A059] text-black py-4 uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors">
-                Save Project to Database
-            </button>
-            <div id="upload-status" class="text-center text-sm text-[#C5A059] mt-2"></div>
-        </form>
+        </div>
+
+        <div class="space-y-2">
+            <label class="block text-[9px] text-white/60 uppercase tracking-[0.2em]">Render Gallery (Comma separated)</label>
+            <textarea id="p-renders" rows="2" class="w-full bg-white/5 border border-white/10 p-3 outline-none text-white focus:border-[#C5A059]"></textarea>
+        </div>
+        
+        <div class="space-y-2">
+            <label class="block text-[9px] text-white/60 uppercase tracking-[0.2em]">Floor Plans (Comma separated)</label>
+            <textarea id="p-plans" rows="2" class="w-full bg-white/5 border border-white/10 p-3 outline-none text-white focus:border-[#C5A059]"></textarea>
+        </div>
+    </div>
+
+    <button type="button" onclick="uploadProject()" class="w-full border border-[#C5A059] text-[#C5A059] py-4 uppercase tracking-[0.3em] font-medium hover:bg-[#C5A059] hover:text-black transition-all duration-300">
+        Upload Project
+    </button>
+    <div id="upload-status" class="text-center text-[10px] tracking-[0.2em] text-[#C5A059] mt-2"></div>
+</form>
     </div>
 </div>
 
@@ -1420,7 +1500,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // توفير قاعدة البيانات للنظام
     window.luxDB = { db, collection, getDocs, addDoc };
     
     if(typeof fetchAndRenderProjects === 'function') {
@@ -1430,7 +1509,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 <script>
 
-// Global State
 let projectsData = [];
 
 // Fetch Projects from Firebase
@@ -1438,6 +1516,7 @@ async function fetchAndRenderProjects() {
     const { db, collection, getDocs } = window.luxDB;
     const querySnapshot = await getDocs(collection(db, "projects"));
     const grid = document.getElementById('dynamic-portfolio-grid');
+    
     grid.innerHTML = '';
     projectsData = [];
 
@@ -1445,23 +1524,35 @@ async function fetchAndRenderProjects() {
         const data = doc.data();
         projectsData.push({ id: doc.id, ...data });
         
-        // Build Luxury Card
         const cardHTML = `
-            <div class="group relative overflow-hidden mb-8 cursor-pointer" onclick="openShowcase('${doc.id}')">
+            <div class="project-card group relative overflow-hidden mb-8 cursor-pointer" onclick="openShowcase('${doc.id}')">
                 <div class="overflow-hidden bg-white/5">
                     <img src="${data.coverImage}" alt="${data.title}" class="w-full h-auto object-cover transform transition-transform duration-[1.5s] ease-out group-hover:scale-110 blur-0 group-hover:blur-sm brightness-100 group-hover:brightness-50">
                 </div>
+                <!-- التدرج اللوني خلف النص لضمان الوضوح -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
                 <div class="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    <span class="text-[#C5A059] text-[10px] tracking-[0.3em] uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">${data.category}</span>
-                    <h3 class="lux-font text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">${data.title}</h3>
+                    <!-- التصنيف أو الموقع باللون الذهبي والخط المتباعد -->
+                    <span class="text-[#C5A059] text-xs tracking-[0.2em] uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        ${data.category}
+                    </span>
+                    <!-- العنوان بالخط الكلاسيكي الفخم -->
+                    <h3 class="font-serif text-4xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                        ${data.title}
+                    </h3>
                 </div>
             </div>
         `;
+        
         grid.insertAdjacentHTML('beforeend', cardHTML);
     });
+
+    if (typeof setupProjectsVisibility === 'function') {
+        setupProjectsVisibility();
+    }
 }
 
-// Open Showcase with GSAP Animations
 function openShowcase(projectId) {
     const project = projectsData.find(p => p.id === projectId);
     if(!project) return;
@@ -1517,9 +1608,6 @@ function closeShowcase() {
         }
     });
 }
-
-// --- Admin System Logic ---
-// Trigger admin by pressing Ctrl + Shift + A
 document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'A') {
         const adminPanel = document.getElementById('admin-dashboard');
@@ -1540,14 +1628,12 @@ async function uploadProject() {
     const { db, collection, addDoc } = window.luxDB;
     
     try {
-        // تحويل النصوص التي تفصلها فاصلة إلى مصفوفة روابط
         const renderInput = document.getElementById('p-renders').value;
         const rendersArray = renderInput ? renderInput.split(',').map(url => url.trim()).filter(url => url !== "") : [];
 
         const planInput = document.getElementById('p-plans').value;
         const plansArray = planInput ? planInput.split(',').map(url => url.trim()).filter(url => url !== "") : [];
 
-        // حفظ البيانات في Firestore
         await addDoc(collection(db, "projects"), {
             title: document.getElementById('p-title').value,
             category: document.getElementById('p-cat').value,
